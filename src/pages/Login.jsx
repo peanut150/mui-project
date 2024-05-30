@@ -1,18 +1,41 @@
 import { Container, Box, Paper, TextField, Button, Typography, InputAdornment, IconButton } from "@mui/material";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoginIcon from '@mui/icons-material/Login';
 import PersonAddAltRoundedIcon from '@mui/icons-material/PersonAddAltRounded';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import supabase from "../services/Supabase";
 
 export default function Login() {
-
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isError, setIsError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const validate = () => {
     setIsError(true);
+  }
+
+  const navigate = useNavigate();
+
+  const login = async () => {
+   
+    let { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password
+    })
+
+    if(error !== null){
+      setIsError(true);
+      setErrorMessage(error.message);
+      return
+    }
+
+    if(data !== null){
+      navigate("/dashboard");
+    }
   }
 
   return (
@@ -20,6 +43,12 @@ export default function Login() {
     <Box sx={{ alignContent: "center", height: "97vh" }}>
       <Container maxWidth="xs" component={Paper} sx={{ p: 3 }}>
         <Typography variant="h5" sx={{ p: 1 }}>MUI Project</Typography>
+            {
+              isError &&
+              <Box>
+                <Typography color="red" align="center">{errorMessage}</Typography>
+              </Box>
+            }
             <Box sx={{ p: 1 }}>
                 <TextField
                   error={isError}
@@ -27,10 +56,12 @@ export default function Login() {
                   fullWidth
                   label="Email"
                   variant="outlined"
+                  onChange={(e) => setEmail(e.target.value)}
                 />
             </Box>
             <Box sx={{ p: 1 }}>
                 <TextField
+                  onChange={(e) => setPassword(e.target.value)}
                   type={showPassword ? "text" : "password"}
                   error={isError}
                   helperText={isError ? "Invalid Password" : ""}
@@ -47,17 +78,17 @@ export default function Login() {
                 />
             </Box>
             <Box sx={{ p: 1 }}>
-              <Link to="/dashboard">
+              
                 <Button
                   size="large"
                   fullWidth
-                  onClick={validate}
+                  onClick={login}
                   variant="contained"
                   endIcon={<LoginIcon />}
                 >
                   Login
                 </Button>
-              </Link>
+             
             </Box>
             <Typography align="center">or</Typography>
             <Box sx={{ p: 1 }}>
