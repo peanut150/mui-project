@@ -26,7 +26,7 @@ const routes = [
                 element: <Main />
             },
             {
-                path: "users/:id",
+                path: "users",
                 element: <Users />
             },
             {

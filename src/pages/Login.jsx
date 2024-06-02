@@ -54,6 +54,7 @@ export default function Login() {
             }
             <Box sx={{ p: 1 }}>
                 <TextField
+                  type="email"
                   error={isError}
                   helperText={isError ? "Invalid Email" : ""}
                   fullWidth
@@ -68,6 +69,7 @@ export default function Login() {
                   type={showPassword ? "text" : "password"}
                   error={isError}
                   helperText={isError ? "Invalid Password" : ""}
+                  required
                   fullWidth
                   label="Password"
                   variant="outlined"

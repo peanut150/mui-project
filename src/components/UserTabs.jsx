@@ -38,8 +38,8 @@ function a11yProps(index) {
   };
 }
 
-export default function UserTabs(props) {
-  const [value, setValue] = React.useState(props.view ?? 0);
+export default function UserTabs() {
+  const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -49,19 +49,15 @@ export default function UserTabs(props) {
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Item One" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
-          <Tab label="Item Three" {...a11yProps(2)} />
+          <Tab label="Clients" {...a11yProps(0)} />
+          <Tab label="Admin" {...a11yProps(1)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        Item One
+        Clients table
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        Item Two
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
-        Item Three
+        Admin table
       </CustomTabPanel>
     </Box>
   );
