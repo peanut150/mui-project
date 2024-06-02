@@ -1,6 +1,6 @@
 import { Container, Box, Paper, TextField, Button, Typography, InputAdornment, IconButton } from "@mui/material";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import LoginIcon from '@mui/icons-material/Login';
 import PersonAddAltRoundedIcon from '@mui/icons-material/PersonAddAltRounded';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -19,6 +19,9 @@ export default function Login() {
   }
 
   const navigate = useNavigate();
+  const params = useLocation();
+
+  console.log(params);
 
   const login = async () => {
    
