@@ -8,6 +8,7 @@ import { useState } from "react";
 import { DatePicker } from "@mui/x-date-pickers";
 import supabase from "../services/Supabase";
 import { LoadingButton } from "@mui/lab";
+
 export default function SignUpPage() {
     const [user, setUser] = useState({
         email: "",

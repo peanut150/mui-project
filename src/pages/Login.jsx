@@ -13,17 +13,18 @@ export default function Login() {
   const [isError, setIsError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
-  const validate = () => {
-    setIsError(true);
-  }
-
   const navigate = useNavigate();
   const params = useLocation();
 
   console.log(params);
 
   const login = async () => {
+
+    if(email === "" || password === ""){
+      setIsError(true);
+      setErrorMessage("Please fill in the fields");
+      return
+    }
    
     let { data, error } = await supabase.auth.signInWithPassword({
       email: email,
